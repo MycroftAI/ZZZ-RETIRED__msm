@@ -85,6 +85,7 @@ function update() {
 	for d in *; do
 		if git -C "$d" rev-parse --git-dir > /dev/null 2>&1; then
 			cd $d
+			sudo git fetch
 			sudo git reset --hard origin/master 
 			cd ..
 		fi
