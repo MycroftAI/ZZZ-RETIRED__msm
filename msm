@@ -96,6 +96,18 @@ function list() {
 	curl -s "https://raw.githubusercontent.com/MycroftAI/mycroft-skills/master/.gitmodules" | grep 'submodule "' | sed 's/\[submodule "//g'| sed 's/"\]//g'
 }
 
+function install_default() {
+    if [ -d "/opt/mycroft/skills" ]; then
+        cd /opt/mycroft/skills
+        git init
+        git remote add origin git@github.com:MycroftAI/mycroft-skills.git
+        git pull
+        echo "exists"
+    else
+        echo "dont"
+    fi
+}
+
 if [ "$1" = "install" ]; then
         install $*
 elif [ "$1" = "list" ]; then
@@ -103,6 +115,8 @@ elif [ "$1" = "list" ]; then
 	list 
 elif [ "$1" = "update" ]; then
 	update 
+elif [ "$1" = "default" ]; then
+	install_default
 else
         help
 fi
